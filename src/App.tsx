@@ -1,28 +1,21 @@
-import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from './hooks/redux';
-import { fetchUsers } from './store/reducers/ActionCreators';
+import {
+	BrowserRouter as Router,
+} from "react-router-dom";
+import Header from './components/header/Header';
+import Main from "./components/main/Main";
 import './styles/App.scss';
 
 function App() {
 
-	const {users, isLoading, error}  = useAppSelector(state => state.userReducer)
-	const dispatch = useAppDispatch()
 
-	useEffect(() => {
-		dispatch(fetchUsers())
-	},[])
 	
 	return (
-		<div className="app">
-			{isLoading && <h1>Идёт загрузка...</h1>}
-			{error && <h1>{error}</h1>}
-
-			{users.map( user => {
-				return (
-					<div key={user.id}> {user.name}</div>
-				)
-			})}
-		</div>
+		<Router>
+			<div className="app">
+				<Header/>
+				<Main/>
+			</div>
+		</Router>
 	);
 }
 
