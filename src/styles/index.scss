@@ -3,7 +3,7 @@
 	padding: 0;
 	margin: 0;
 	border: 0;
-	font-family: 'SF Pro Display';
+	font-family: 'Roboto-Regular';
 }
 
 *,
@@ -91,9 +91,9 @@ h6 {
 /*------reset styles end-------*/
 
 @font-face {
-	font-family: "SF Pro Display";
+	font-family: "Roboto-Regular";
 	font-display: swap;
-	src: url("../fonts/SFProDisplay-Regular.woff2") format("woff"), url("../fonts/SFProDisplay-Regular.woff2") format("woff2");
+	src: url("../fonts/Roboto-Regular.woff2") format("woff"), url("../fonts/Roboto-Regular.woff2") format("woff2");
 	font-weight: 400;
 	font-style: Regular;
 }
