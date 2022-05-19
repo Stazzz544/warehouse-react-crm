@@ -1,0 +1,93 @@
+.CreateNewProduct {}
+
+.product-card {
+	border-radius: 5px;
+	margin: 30px auto 0 auto;
+	max-width: 600px;
+	background: #ffffff;
+	padding: 30px 20px;
+
+	&__input-wrapper {
+		margin-top: 15px;
+		display: flex;
+		align-items: center;
+	}
+
+	&__label {
+		flex: 0 0 30%;
+	}
+
+	&__input {
+		flex: 1 1 70%;
+		height: 30px;
+		border: 1px solid #000000;
+		padding: 0px 20px;
+	}
+
+	&__button-wrapper {
+		margin-top: 30px;
+		display: flex;
+		justify-content: center;
+
+	}
+
+	&__button {
+		background: #92f10c;
+		padding: 10px 40px;
+		border-radius: 50px;
+		color: #ffffff;
+		font-size: 20px;
+		letter-spacing: 1.1px;
+		transition: all 0.3s;
+
+		&:hover {
+			background: #86e601;
+		}
+	}
+
+	&__dropdown-main-wrapper {
+		margin-top: 20px;
+		display: flex;
+	}
+
+	&__dropdown-wrapper {
+		flex: 1 1 70%;
+		position: relative;
+	}
+
+	&__label {}
+
+	&__dropdown-list-item {
+		height: 30px;
+		border: 1px solid #000000;
+		padding: 0px 20px;
+		display: flex;
+		align-items: center;
+		cursor: pointer;
+		border-top: none;
+		&:hover{
+			color: #76ca00;
+		}
+	}
+	&__dropdown-list-item.choisen {
+		border-top: 1px solid #000000;
+	}
+
+	&__dropdown-list {
+		position: absolute;
+		width: 100%;
+		overflow: hidden;
+		max-height: 0px;
+		transition: all 1s;
+		background: #ffffff;
+		
+	}
+
+	&__dropdown-list.active {
+		max-height: 100vh;
+	}
+
+	&__dropdown-list-item {
+
+	}
+}
