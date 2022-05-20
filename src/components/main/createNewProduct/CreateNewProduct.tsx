@@ -1,42 +1,50 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { useEffect, useState } from 'react'
-import { getProductTypes } from '../../../dal/firebase/getDataFromDb'
+import { fetchProducts, getProductTypes } from '../../../dal/firebase/getDataFromDb'
 import { createNewProductInDb } from '../../../dal/firebase/pushDataToDb'
-
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux'
 import { MaterialTypes } from '../../../models/ICreateNewProductSlice'
-import { chooseTypeOfMaterial, fetchMaterialsFromDb, fetchMaterialsFromDbError, fetchMaterialsFromDbSuccess, setNameOfNewProductInputValue } from '../../../store/reducers/createNewProductSlice'
+import { chooseTypeOfMaterial, fetchMaterialsFromDb, fetchMaterialsFromDbError, fetchMaterialsFromDbSuccess, setNameOfNewProductInputValue, setSuccessText } from '../../../store/reducers/createNewProductSlice'
+import { fetchProductsFromDbError, fetchProductsFromDbSuccess } from '../../../store/reducers/fetchProductsFromDbSlice'
 import DirectoryTitle from '../../UI/DirectoryTitle'
 import './styles/CreateNewProduct.scss'
+import Error from '../modals/Error'
+import Success from '../modals/Success'
 
-// const createNewProdu = () => {
-
-// }
 
 const CreateNewProduct = () => {
-
-
-
 	const dispatch = useAppDispatch()
+
+	
+	
 	const { 
 		materialTypes, 
 		choisenTypeOfMaterial, 
-		nameOfNewProductInputValue, 
+		nameOfNewProductInputValue,
+		error: newProductError,
+		successText: newProductSuccess,
 	} = useAppSelector(state => state.createNewProducReducer)
 
 	const { products } = useAppSelector(state => state.fetchProductsFromDbReducer)
+	
+	
 
-	const objCicle = () => {
-		const arr =  products[choisenTypeOfMaterial]
-		console.log(arr)
-		for (let item in arr) {
-			for(let itemInside in item){
-				console.log(itemInside)
-			}
+	const isProductConsist = () => {
+		
+		let isConsist = false;
+		if (!products[choisenTypeOfMaterial]) return false
+
+		const productsArr: any = Object.values(products[choisenTypeOfMaterial])
+
+		for(let key in productsArr) {
+			if(productsArr[key].productName === nameOfNewProductInputValue) isConsist = true
 		}
+		return isConsist
 	}
-	objCicle()
 
 
+
+	
 	const [dropdown, setDropdown] = useState(false)
 
 	useEffect(() => {
@@ -50,8 +58,18 @@ const CreateNewProduct = () => {
 
 	const createNewProduct = () => {
 		
-
-		createNewProductInDb(nameOfNewProductInputValue, choisenTypeOfMaterial)
+		if (isProductConsist()) {
+			dispatch(fetchMaterialsFromDbError('Такой товар уже есть в базе'))
+		} else if (!nameOfNewProductInputValue) {
+			dispatch(fetchMaterialsFromDbError('Не введено название товара'))
+		} else if (!choisenTypeOfMaterial) {
+			dispatch(fetchMaterialsFromDbError('Не выбран тип товара'))
+		} else {
+			createNewProductInDb(nameOfNewProductInputValue, choisenTypeOfMaterial)
+			fetchProducts(dispatch, fetchProductsFromDbSuccess, fetchProductsFromDbError)
+			dispatch(setNameOfNewProductInputValue(''))
+			dispatch(setSuccessText('Товар был успешно добавлен в базу данных'))
+		}
 	}
 
 
@@ -75,7 +93,8 @@ const CreateNewProduct = () => {
 					<div className='product-card__label'>Тип товара:</div>
 					<div onClick={() => { setDropdown(!dropdown) }} className='product-card__dropdown-wrapper'>
 
-						<div className="product-card__dropdown-list-item choisen">{choisenTypeOfMaterial}</div>
+						<div className="product-card__dropdown-list-item choisen">{choisenTypeOfMaterial? choisenTypeOfMaterial: 'Материал не выбран'}</div>
+
 						<div className={!dropdown ? "product-card__dropdown-list" : "product-card__dropdown-list active"}>
 							{
 								materialTypes.map((item: MaterialTypes) => {
@@ -103,6 +122,13 @@ const CreateNewProduct = () => {
 
 			</div>
 
+			{newProductError ? 
+				<Error errorText={newProductError} closeModal={fetchMaterialsFromDbError}/>:false
+			}
+			{newProductSuccess ? 
+				<Success successText={newProductSuccess} closeModal={setSuccessText}/>:false
+			}
+
 		</div>
 
 
@@ -110,3 +136,7 @@ const CreateNewProduct = () => {
 }
 
 export default CreateNewProduct	
+
+function resetChoisenTypeOfMaterial(): any {
+	throw new Error('Function not implemented.')
+}

@@ -1,8 +1,8 @@
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
-import { child, get } from "firebase/database";
+import { child, get, getDatabase, ref, onValue } from "firebase/database";
 import { MaterialTypes } from "../../models/ICreateNewProductSlice";
 import { AppDispatch } from "../../store/store";
-import { dbRef } from "./firebaseConfing";
+import { db, dbRef } from "./firebaseConfing";
 
 
 export const getProductTypes = async (
@@ -37,7 +37,6 @@ export const fetchProducts = async (
 		.then((snapshot) => {
 			if (snapshot.exists()) {
 				dispatch(actionSuccess(snapshot.val()))
-				console.log(snapshot.val());
 			} else {
 				dispatch(actionError("No data available"))
 				console.log("No data available");
@@ -46,3 +45,7 @@ export const fetchProducts = async (
 			console.error(error);
 		});
 }
+
+
+
+

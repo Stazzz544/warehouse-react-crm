@@ -6,7 +6,8 @@ const initialState: createNewProductSliceState = {
 	materialTypes: [],
 	isLoading: false,
 	error: '',
-	choisenTypeOfMaterial: 'Материал не выбран',
+	successText: '',
+	choisenTypeOfMaterial: '',
 	nameOfNewProductInputValue: '',
 }
 
@@ -22,17 +23,22 @@ export const createNewProductSlice = createSlice({
 			state.materialTypes = action.payload
 			state.isLoading = false
 			state.error = ''
+			state.successText = ''
 		},
 		fetchMaterialsFromDbError(state, action: PayloadAction<string>) {
 			state.isLoading = false
 			state.error = action.payload
 		},
-		chooseTypeOfMaterial(state, action: PayloadAction<string> ) {
+		chooseTypeOfMaterial(state, action: PayloadAction<string>) {
 			state.choisenTypeOfMaterial = action.payload
 		},
 		setNameOfNewProductInputValue(state, action: PayloadAction<string>) {
 			state.nameOfNewProductInputValue = action.payload
-		}
+		},
+		setSuccessText(state, action: PayloadAction<string>) {
+			state.successText = action.payload
+		},
+
 	}
 })
 
@@ -44,5 +50,6 @@ export const {
 	fetchMaterialsFromDbSuccess, 
 	fetchMaterialsFromDbError, 
 	fetchMaterialsFromDb,
-	setNameOfNewProductInputValue
+	setNameOfNewProductInputValue,
+	setSuccessText
 } = createNewProductSlice.actions
