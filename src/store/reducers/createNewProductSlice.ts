@@ -1,16 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { createNewProductSliceState, MaterialTypes } from "../../models/IcreateNewProductSlice";
+import { createNewProductSliceState, MaterialTypes } from "../../models/ICreateNewProductSlice";
 
 
 const initialState: createNewProductSliceState = {
 	materialTypes: [],
 	isLoading: false,
 	error: '',
-	choisenTypeOfMaterial: 'Материал не выбран'
+	choisenTypeOfMaterial: 'Материал не выбран',
+	nameOfNewProductInputValue: '',
 }
 
 export const createNewProductSlice = createSlice({
-	name: 'user',
+	name: 'createNewProductSlice',
 	initialState,
 	reducers: {
 		fetchMaterialsFromDb(state, action: PayloadAction<boolean>) {
@@ -28,6 +29,9 @@ export const createNewProductSlice = createSlice({
 		},
 		chooseTypeOfMaterial(state, action: PayloadAction<string> ) {
 			state.choisenTypeOfMaterial = action.payload
+		},
+		setNameOfNewProductInputValue(state, action: PayloadAction<string>) {
+			state.nameOfNewProductInputValue = action.payload
 		}
 	}
 })
@@ -39,5 +43,6 @@ export const {
 	chooseTypeOfMaterial,
 	fetchMaterialsFromDbSuccess, 
 	fetchMaterialsFromDbError, 
-	fetchMaterialsFromDb
+	fetchMaterialsFromDb,
+	setNameOfNewProductInputValue
 } = createNewProductSlice.actions

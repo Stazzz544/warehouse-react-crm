@@ -1,14 +1,16 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import createNewProducReducer from './reducers/createNewProductSlice'
+import fetchProductsFromDbReducer from './reducers/fetchProductsFromDbSlice'
 
 const rootReducer = combineReducers({
-	createNewProducReducer
+	createNewProducReducer,
+	fetchProductsFromDbReducer,
 })
 
 export const setupStore = () => {
-    return configureStore({
-        reducer: rootReducer
-    })
+	return configureStore({
+		reducer: rootReducer
+	})
 }
 
 export type RootState = ReturnType<typeof rootReducer>

@@ -1,4 +1,8 @@
+import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
+import { fetchProducts } from '../../dal/firebase/getDataFromDb'
+import { useAppDispatch } from '../../hooks/redux'
+import { fetchProductsFromDb, fetchProductsFromDbError, fetchProductsFromDbSuccess } from '../../store/reducers/fetchProductsFromDbSlice'
 import AdmissioProduct from './admissioProduct/AdmissioProduct'
 import CreateNewProduct from './createNewProduct/CreateNewProduct'
 import CurrentStateWarehouse from './currentStateWarehouse/CurrentStateWarehouse'
@@ -6,7 +10,20 @@ import Home from './home/Home'
 import IssueProduct from './issueProduct/IssueProduct'
 import './style/Main.scss'
 
+
 const Main = () => {
+
+	const dispatch = useAppDispatch()
+
+	useEffect(() => {
+		dispatch(fetchProductsFromDb(true))
+		fetchProducts(
+			dispatch,
+			fetchProductsFromDbSuccess,
+			fetchProductsFromDbError
+		)
+	}, [])
+
 	return(
 		<main className="main">
 			<div className='container'>
@@ -23,3 +40,7 @@ const Main = () => {
 }
 
 export default Main
+
+function dispatch(arg0: any) {
+	throw new Error('Function not implemented.')
+}

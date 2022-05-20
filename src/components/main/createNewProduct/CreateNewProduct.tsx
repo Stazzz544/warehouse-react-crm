@@ -1,15 +1,42 @@
 import { useEffect, useState } from 'react'
 import { getProductTypes } from '../../../dal/firebase/getDataFromDb'
+import { createNewProductInDb } from '../../../dal/firebase/pushDataToDb'
+
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux'
-import { MaterialTypes } from '../../../models/IcreateNewProductSlice'
-import { chooseTypeOfMaterial, fetchMaterialsFromDb, fetchMaterialsFromDbError, fetchMaterialsFromDbSuccess } from '../../../store/reducers/createNewProductSlice'
+import { MaterialTypes } from '../../../models/ICreateNewProductSlice'
+import { chooseTypeOfMaterial, fetchMaterialsFromDb, fetchMaterialsFromDbError, fetchMaterialsFromDbSuccess, setNameOfNewProductInputValue } from '../../../store/reducers/createNewProductSlice'
 import DirectoryTitle from '../../UI/DirectoryTitle'
 import './styles/CreateNewProduct.scss'
 
+// const createNewProdu = () => {
+
+// }
+
 const CreateNewProduct = () => {
 
+
+
 	const dispatch = useAppDispatch()
-	const { materialTypes, choisenTypeOfMaterial } = useAppSelector(state => state.createNewProducReducer)
+	const { 
+		materialTypes, 
+		choisenTypeOfMaterial, 
+		nameOfNewProductInputValue, 
+	} = useAppSelector(state => state.createNewProducReducer)
+
+	const { products } = useAppSelector(state => state.fetchProductsFromDbReducer)
+
+	const objCicle = () => {
+		const arr =  products[choisenTypeOfMaterial]
+		console.log(arr)
+		for (let item in arr) {
+			for(let itemInside in item){
+				console.log(itemInside)
+			}
+		}
+	}
+	objCicle()
+
+
 	const [dropdown, setDropdown] = useState(false)
 
 	useEffect(() => {
@@ -21,6 +48,12 @@ const CreateNewProduct = () => {
 		)
 	}, [])
 
+	const createNewProduct = () => {
+		
+
+		createNewProductInDb(nameOfNewProductInputValue, choisenTypeOfMaterial)
+	}
+
 
 	return (
 		<div className='CreateNewProduct'>
@@ -29,8 +62,12 @@ const CreateNewProduct = () => {
 			<div className="product-card">
 
 				<div className="product-card__input-wrapper">
-					<label className='product-card__label' htmlFor="product-name">Название товара:</label>
-					<input className='product-card__input' id='product-name' type="text" />
+					<label className='product-card__label'>Название товара:</label>
+					<input 
+					value={nameOfNewProductInputValue}
+					onInput={(e)=>{dispatch(setNameOfNewProductInputValue(e.currentTarget.value))}}
+					className='product-card__input' 
+					type="text" />
 				</div>
 
 				<div className="product-card__dropdown-main-wrapper">
@@ -52,13 +89,16 @@ const CreateNewProduct = () => {
 									)
 								})
 							}
-
 						</div>
 					</div>
 				</div>
 
 				<div className="product-card__button-wrapper">
-					<button className="product-card__button">Создать товар</button>
+					<button 
+					onClick={createNewProduct}
+					className="product-card__button">
+						Создать товар
+					</button>
 				</div>
 
 			</div>
