@@ -6,9 +6,16 @@
 	align-items: center;
 	&__wrapper {
 		flex: 1 1;
-		max-width: 600px;
-		height: 300px;
+		max-width: 50%;
 		border: 1px solid black;
+		display: flex;
+	}
+	&__left-side {
+		flex: 1 1 50%;
+		background: './img/auth/bg.jpg';
+	}
+	&__right-side {
+		flex: 1 1 50%;
 	}
 
 	&__form {
