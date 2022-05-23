@@ -12,6 +12,7 @@ const Success: React.FC<TProps>= (props) => {
 	return (
 		<div className="modal">
 			<div className="modal__wrapper modal__wrapper_success">
+				<h3 className="modal__title">Всё прошло хорошо :</h3>
 				<div className="modal__message">
 					{props.successText}
 				</div>

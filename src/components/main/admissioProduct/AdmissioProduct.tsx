@@ -1,10 +1,12 @@
+import DirectoryTitle from '../../UI/directoryTitle/DirectoryTitle'
 import './styles/AdmissioProduct.scss'
 
 const AdmissioProduct = () => {
 	return(
-		<>
-		<h1>AdmissioProduct</h1>
-		</>
+		<div className="AdmissioProduct__wrapper">
+			<DirectoryTitle title='Поступление товара' />
+
+		</div>
 	)
 }
 

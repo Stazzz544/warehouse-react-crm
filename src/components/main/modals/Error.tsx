@@ -12,6 +12,7 @@ const Error: React.FC<TProps> = (props) => {
 	return (
 		<div className="modal">
 			<div className="modal__wrapper modal__wrapper_error">
+				<h3 className="modal__title">Произошла ошибка :</h3>
 				<div className="modal__message">
 					{props.errorText}
 				</div>

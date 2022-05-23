@@ -6,10 +6,11 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/redux'
 import { MaterialTypes } from '../../../models/ICreateNewProductSlice'
 import { chooseTypeOfMaterial, fetchMaterialsFromDb, fetchMaterialsFromDbError, fetchMaterialsFromDbSuccess, setNameOfNewProductInputValue, setSuccessText } from '../../../store/reducers/createNewProductSlice'
 import { fetchProductsFromDbError, fetchProductsFromDbSuccess } from '../../../store/reducers/fetchProductsFromDbSlice'
-import DirectoryTitle from '../../UI/DirectoryTitle'
+import DirectoryTitle from '../../UI/directoryTitle/DirectoryTitle'
 import './styles/CreateNewProduct.scss'
 import Error from '../modals/Error'
 import Success from '../modals/Success'
+import Dropdown from '../../UI/dropdown/Dropdown'
 
 
 const CreateNewProduct = () => {
@@ -42,10 +43,7 @@ const CreateNewProduct = () => {
 		return isConsist
 	}
 
-
-
-	
-	const [dropdown, setDropdown] = useState(false)
+	// const [dropdown, setDropdown] = useState(false)
 
 	useEffect(() => {
 		dispatch(fetchMaterialsFromDb(true))
@@ -91,7 +89,19 @@ const CreateNewProduct = () => {
 				<div className="product-card__dropdown-main-wrapper">
 
 					<div className='product-card__label'>Тип товара:</div>
-					<div onClick={() => { setDropdown(!dropdown) }} className='product-card__dropdown-wrapper'>
+
+					<Dropdown
+						choisenItemInDropdown={choisenTypeOfMaterial}
+						ifNothingChoise={'Материал не выбран'}
+						arrayOfDropdownItems={materialTypes}
+						arrayItem={'material'}
+						actionForDispatch={chooseTypeOfMaterial}
+					/>
+
+
+
+
+					{/* <div onClick={() => { setDropdown(!dropdown) }} className='product-card__dropdown-wrapper'>
 
 						<div className="product-card__dropdown-list-item choisen">{choisenTypeOfMaterial? choisenTypeOfMaterial: 'Материал не выбран'}</div>
 
@@ -109,7 +119,9 @@ const CreateNewProduct = () => {
 								})
 							}
 						</div>
-					</div>
+					</div> */}
+
+					
 				</div>
 
 				<div className="product-card__button-wrapper">
@@ -128,7 +140,6 @@ const CreateNewProduct = () => {
 			{newProductSuccess ? 
 				<Success successText={newProductSuccess} closeModal={setSuccessText}/>:false
 			}
-
 		</div>
 
 
@@ -137,6 +148,3 @@ const CreateNewProduct = () => {
 
 export default CreateNewProduct	
 
-function resetChoisenTypeOfMaterial(): any {
-	throw new Error('Function not implemented.')
-}
