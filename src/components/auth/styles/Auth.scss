@@ -4,20 +4,48 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
 	&__wrapper {
 		flex: 1 1;
 		max-width: 50%;
 		border: 1px solid black;
-		display: flex;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
 	}
+
 	&__left-side {
-		flex: 1 1 50%;
-		background: './img/auth/bg.jpg';
+		max-width: 100%;
+		max-height: 100%;
+		display: flex;
+		position: relative;
+		
+		&::after{
+			content: '';
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			left: 0;
+			background-color: rgba(0, 0, 0, 0.262);
+		}
+		&::before {
+			content: 'Your warehose';
+			position: absolute;
+			color: rgb(255, 255, 255);
+			
+		}
 	}
+
+	&__left-side-bg {
+		flex: 1 1;
+		object-fit: fill;
+		max-width: 100%;
+		height: auto;
+	}
+
 	&__right-side {
 		flex: 1 1 50%;
 	}
 
-	&__form {
-	}
+	&__form {}
 }
