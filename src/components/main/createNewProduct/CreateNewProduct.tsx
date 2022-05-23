@@ -136,7 +136,3 @@ const CreateNewProduct = () => {
 }
 
 export default CreateNewProduct	
-
-function resetChoisenTypeOfMaterial(): any {
-	throw new Error('Function not implemented.')
-}

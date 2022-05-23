@@ -1,10 +1,12 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import createNewProducReducer from './reducers/createNewProductSlice'
 import fetchProductsFromDbReducer from './reducers/fetchProductsFromDbSlice'
+import AutentificationReducer from './reducers/autentificationSlice'
 
 const rootReducer = combineReducers({
 	createNewProducReducer,
 	fetchProductsFromDbReducer,
+	AutentificationReducer,
 })
 
 export const setupStore = () => {
