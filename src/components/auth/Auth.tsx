@@ -1,5 +1,6 @@
 import { useState } from "react"
 import SingIn from "./singIn/SingIn"
+import SingUp from "./singUp/SingUp"
 import './styles/Auth.scss'
 
 const Auth = () => {
@@ -15,7 +16,7 @@ const Auth = () => {
 				<div className="auth__right-side">
 					<div className="auth__form">
 						{isNewUser ?
-							<>yes</>gi
+							<SingUp />
 							:
 							<SingIn />
 						}
