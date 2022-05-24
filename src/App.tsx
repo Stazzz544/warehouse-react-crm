@@ -23,7 +23,7 @@ function App() {
 	return (
 		currentUser === null ? 
 		<Router>
-			<div className="app">
+			<div className="app auth-active">
 				<Auth/>
 			</div>
 		</Router>

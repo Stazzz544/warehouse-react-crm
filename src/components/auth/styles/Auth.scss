@@ -10,6 +10,8 @@
 		max-width: 700px;
 		display: grid;
 		grid-template-columns: 60% 40%;
+		transition: 1s all;
+		height: 365px;
 	}
 
 	&__left-side {
@@ -17,6 +19,7 @@
 		max-height: 100%;
 		display: flex;
 		position: relative;
+		
 
 		&::after{
 			content: '';
@@ -31,17 +34,20 @@
 			content: '';
 		}
 	}
+	
 	&__left-side-title{
 		padding: 0 30px;
-		line-height: 40px;
+		line-height: 49px;
 		margin-top: 20%;
 		width: 100%;
-		font-size: 30px;
+		font-size: 47px;
 		letter-spacing: 1.2px;
 		text-align: center;
 		position: absolute;
 		color: rgb(255, 255, 255);
 		z-index: 1;
+		font-family: 'BarlowCondensed-regular';
+		text-shadow: -1px 1px 6px #000000;
 	}
 
 	&__left-side-bg {
@@ -51,14 +57,11 @@
 	}
 
 	&__right-side {
-		outline-offset: -1px;
-		background: rgb(241, 241, 241);
-		&:active{
-		}
+		background: rgb(255, 255, 255);
 	}
 
 	&__form {
-		
+		height: 365px;
 	}
 	&__form-btn-wrapper{
 		display: flex;
@@ -70,6 +73,14 @@
 		flex: 1 1 50%;
 		padding: 5px 0px;
 		position: relative;
+		transition: all 0.4s;
+		&:hover{
+			background:rgb(245, 225, 45);
+			color: #000000;
+		}
+		&:hover::after{
+			background:rgb(245, 225, 45);
+		}
 	}
 	&__signIn-btn{
 		background: #234687;
@@ -84,6 +95,7 @@
 			z-index: 2;
 			top: -8px;
 			right: -8px;
+			transition: all 0.4s
 		}
 		&-span{
 			position: relative;
@@ -102,8 +114,25 @@
 			background:  rgb(36, 221, 60);
 			transform: rotate(-45deg);
 			z-index: 2;
-			top: 7px;
-			left: -10px;
+			top: 8px;
+			left: -12px;
+			transition: all 0.4s
 		}
+	}
+}
+
+.company-logo{
+	margin-top: 70px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 6;
+	display: flex;
+	justify-content: center;
+	&__svg{
+		width: 150px;
+		height: auto;
 	}
 }

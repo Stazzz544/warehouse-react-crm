@@ -97,3 +97,19 @@ h6 {
 	font-weight: 400;
 	font-style: Regular;
 }
+
+@font-face {
+	font-family: "BarlowCondensed-ExtraLight";
+	font-display: swap;
+	src: url("../fonts/BarlowCondensed-ExtraLight.woff2") format("woff"), url("../fonts/BarlowCondensed-ExtraLight.woff2") format("woff2");
+	font-weight: 200;
+	font-style: ExtraLight;
+}
+
+@font-face {
+	font-family: "BarlowCondensed-Regular";
+	font-display: swap;
+	src: url("../fonts/BarlowCondensed-Regular.woff2") format("woff"), url("../fonts/BarlowCondensed-Regular.woff2") format("woff2");
+	font-weight: 400;
+	font-style: Regular;
+}

@@ -6,6 +6,11 @@
 	-ms-transform: skewX(315deg);
 	-o-transform: skewX(315deg);
 	transform: skewX(315deg);
+	transition: 0.3s all;
+&:hover{
+	background: rgb(245, 225, 45)!important;
+	color: #000000;
+}
 &__span{
 	-webkit-transform: skewX(-315deg);
 	-moz-transform: skewX(-315deg);

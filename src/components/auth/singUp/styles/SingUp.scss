@@ -1,9 +1,15 @@
 .sing {
 	padding: 0px 30px 30px 20px;
+	height: 80%;
 
 	&__input-wrapper {
-		
 		margin-top: 15px;
+	}
+	&__all-inp-and-btn-flex-wrapper{
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
 	}
 
 	&__btn-wrapper {

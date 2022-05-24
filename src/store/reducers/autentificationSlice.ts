@@ -6,6 +6,7 @@ const initialState: AutentificationState = {
 	currentUser: 'null',
 	error: '',
 	isLoading: false,
+
 }
 
 const AutentificationSlise = createSlice({
