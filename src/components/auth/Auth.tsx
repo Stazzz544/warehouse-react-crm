@@ -1,6 +1,6 @@
 import { useState } from "react"
-import SingIn from "./singIn/SingIn"
-import SingUp from "./singUp/SingUp"
+import SignIn from "./singIn/SingIn"
+import SignUp from "./singUp/SingUp"
 import './styles/Auth.scss'
 import background from '../../img/auth/bg.jpg'
 
@@ -13,28 +13,34 @@ const Auth = () => {
 			<div className="auth__wrapper">
 				<div className="auth__left-side">
 					<img className="auth__left-side-bg" src={background} alt="" />
+					<h1 className="auth__left-side-title">Green warehose inc</h1>
 				</div>
 
 				<div className="auth__right-side">
 					<div className="auth__form">
-						{isNewUser ?
-							<SingUp />
-							:
-							<SingIn />
-						}
-						<button
-							onClick={() => setIsNewUser(false)}
-							className="auth__signIn">Войти</button>
+						<div className="auth__form-btn-wrapper">
+							<button
+								onClick={() => setIsNewUser(false)}
+								className="auth__signIn-btn">
+								<span className="auth__signIn-btn-span" >Регистрация</span>
+							</button>
 
-						<button
-							onClick={() => setIsNewUser(true)}
-							className="auth__signUp">Регистрация</button>
+							<button
+								onClick={() => setIsNewUser(true)}
+								className="auth__signUp-btn">
+								<span className="auth__signIn-btn-span">Вход</span>
+							</button>
+
+						</div>
+
+						{isNewUser ?
+							<SignIn />
+							:
+							<SignUp />
+						}
 
 					</div>
 				</div>
-
-
-
 			</div>
 		</div>
 

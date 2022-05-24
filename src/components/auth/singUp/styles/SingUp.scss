@@ -1,0 +1,14 @@
+.sing {
+	padding: 0px 30px 30px 20px;
+
+	&__input-wrapper {
+		
+		margin-top: 15px;
+	}
+
+	&__btn-wrapper {
+		margin-top: 40px;
+		display: flex;
+		justify-content: end;
+	}
+}

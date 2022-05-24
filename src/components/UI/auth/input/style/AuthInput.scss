@@ -1,0 +1,28 @@
+.auth-input {
+	&__discription {
+		color: #616161;
+	}
+
+	&__input {
+		margin-top: 5px;
+		font-size: 15px;
+		text-align: center;
+		width: calc(100% - 5px);
+		background: transparent;
+		border-bottom: rgb(0, 0, 0) 1px solid;
+		padding: 4px 0;
+	}
+	&__input-wrapper{
+		position: relative;
+		&::after{
+			content: '';
+			position: absolute;
+			width: 12px;
+			height: 1px;
+			bottom: 5.5px;
+			right: -2px;
+			background-color: #000000;
+			transform: rotate(108deg);
+		}
+	}
+}

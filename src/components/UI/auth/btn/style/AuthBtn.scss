@@ -1,0 +1,16 @@
+.auth-btn {
+	color: white;
+	padding: 10px 20px;
+	-webkit-transform: skewX(315deg);
+	-moz-transform: skewX(315deg);
+	-ms-transform: skewX(315deg);
+	-o-transform: skewX(315deg);
+	transform: skewX(315deg);
+&__span{
+	-webkit-transform: skewX(-315deg);
+	-moz-transform: skewX(-315deg);
+	-ms-transform: skewX(-315deg);
+	-o-transform: skewX(-315deg);
+	transform: skewX(-315deg);
+}
+}
