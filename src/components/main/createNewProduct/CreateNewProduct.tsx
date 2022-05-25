@@ -11,6 +11,7 @@ import './styles/CreateNewProduct.scss'
 import Error from '../modals/Error'
 import Success from '../modals/Success'
 import Dropdown from '../../UI/dropdown/Dropdown'
+import ConfirmGreenBtn from '../../UI/buttons/confirmGreenBtn/ConfirmGreenBtn'
 
 
 const CreateNewProduct = () => {
@@ -125,11 +126,9 @@ const CreateNewProduct = () => {
 				</div>
 
 				<div className="product-card__button-wrapper">
-					<button 
-					onClick={createNewProduct}
-					className="product-card__button">
-						Создать товар
-					</button>
+					<ConfirmGreenBtn 
+					function={createNewProduct} 
+					discriptionText={'Создать товар'}/>
 				</div>
 
 			</div>

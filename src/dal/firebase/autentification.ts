@@ -1,5 +1,5 @@
 import { ActionCreatorWithPayload, PayloadAction } from "@reduxjs/toolkit";
-import { browserSessionPersistence, createUserWithEmailAndPassword, onAuthStateChanged, setPersistence, signInWithEmailAndPassword } from "firebase/auth";
+import { browserSessionPersistence, createUserWithEmailAndPassword, onAuthStateChanged, setPersistence, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { AppDispatch } from "../../store/store";
 import { auth } from "./firebaseConfing";
 
@@ -9,7 +9,7 @@ export const createNewAccount = (email: string, password: string, login: string)
 		.then((userCredential) => {
 			// Signed in 
 			const user = userCredential.user;
-			console.log('userWasCreated')
+			console.log('userWasCreated:', user.displayName )
 		})
 		//изменение имени юзера с дефолтного на введёное
 		.then(() => {
@@ -36,7 +36,7 @@ const changeUserDisplayName = (login: string) => {
 export const signInFirebase = (
 	email: string, 
 	password: string, 
-	dispatch: AppDispatch) => {
+	) => {
 		setPersistence(auth, browserSessionPersistence)
 		.then(() => {
 			return signInWithEmailAndPassword(auth, email, password)
@@ -62,9 +62,17 @@ export const autoLoginization = (
 		if (user) {
 			dispatch(action(user.displayName))
 			const uid = user.uid;
-			console.log(user)
+			console.log('autologin: ', user.displayName)
 		} else {
 			dispatch(action(null))
 		}
+	});
+}
+
+export const logoutFirebase = (dispatch: AppDispatch, action: any) => {
+	signOut(auth).then(() => {
+		dispatch(action())
+	}).catch((error) => {
+	// An error happened.
 	});
 }

@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react"
+import {  useState } from "react"
 import SignIn from "./singIn/SingIn"
 import SignUp from "./singUp/SingUp"
 import './styles/Auth.scss'
 import background from '../../img/auth/bg.jpg'
 import logo from '../../img/auth/logo.svg'
-import { getCurretnUser } from "../../dal/firebase/autentification"
+
 
 
 const Auth = () => {
@@ -40,11 +40,10 @@ const Auth = () => {
 						</div>
 
 						{isNewUser ?
-							<SignIn />
-							:
 							<SignUp />
+							:
+							<SignIn />
 						}
-
 					</div>
 				</div>
 			</div>

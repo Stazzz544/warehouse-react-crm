@@ -31,20 +31,6 @@
 
 	}
 
-	&__button {
-		background: #92f10c;
-		padding: 10px 40px;
-		border-radius: 50px;
-		color: #ffffff;
-		font-size: 20px;
-		letter-spacing: 1.1px;
-		transition: all 0.3s;
-
-		&:hover {
-			background: #86e601;
-		}
-	}
-
 	&__dropdown-main-wrapper {
 		margin-top: 20px;
 		display: flex;

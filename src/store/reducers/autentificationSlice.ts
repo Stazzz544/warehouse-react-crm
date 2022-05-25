@@ -4,6 +4,7 @@ import { AutentificationState } from "../../models/IAutentification"
 
 const initialState: AutentificationState = {
 	currentUser: null,
+	rememberMe: false,
 	error: '',
 	isLoading: false,
 	userLoginInputValue: '',
@@ -28,6 +29,9 @@ const AutentificationSlise = createSlice({
 		setEmailInputValue(state, action: PayloadAction<string>) {
 			state.userEmailInputValue = action.payload
 		},
+		setRememberMe(state, action: PayloadAction<boolean>) {
+			state.rememberMe = action.payload
+		},
 		clearAllFields(state) {
 			state.userLoginInputValue = ''
 			state.userPasswordInputValue = ''
@@ -44,4 +48,5 @@ export const {
 	setPasswordInputValue,
 	setEmailInputValue,
 	clearAllFields,
+	setRememberMe,
 } = AutentificationSlise.actions

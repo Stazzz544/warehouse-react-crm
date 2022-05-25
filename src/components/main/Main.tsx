@@ -8,6 +8,7 @@ import CreateNewProduct from './createNewProduct/CreateNewProduct'
 import CurrentStateWarehouse from './currentStateWarehouse/CurrentStateWarehouse'
 import Home from './home/Home'
 import IssueProduct from './issueProduct/IssueProduct'
+import Profile from './profile/Profile'
 import './style/Main.scss'
 
 
@@ -29,6 +30,7 @@ const Main = () => {
 			<div className='container'>
 				<Routes>
 					<Route path="/" element={<Home/>} />
+					<Route path="profile" element={<	Profile />} />
 					<Route path="issue-product" element={<	IssueProduct />} />
 					<Route path="admissio-product" element={<AdmissioProduct />} />
 					<Route path="create-new-product" element={<CreateNewProduct />} />
