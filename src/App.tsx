@@ -6,7 +6,7 @@ import { start } from "repl";
 import Auth from "./components/auth/Auth";
 import Header from './components/header/Header';
 import Main from "./components/main/Main";
-import { getCurretnUser } from "./dal/firebase/autentification";
+import { autoLoginization } from "./dal/firebase/autentification";
 import { useAppDispatch, useAppSelector } from "./hooks/redux";
 import { fetchCurrentUser } from "./store/reducers/autentificationSlice";
 import './styles/App.scss';
@@ -16,7 +16,7 @@ function App() {
 	const {currentUser} = useAppSelector(state => state.AutentificationReducer)
 
 	useEffect(()=>{
-		getCurretnUser(dispatch, fetchCurrentUser)
+		autoLoginization(dispatch, fetchCurrentUser)
 	}, [])
 
 	

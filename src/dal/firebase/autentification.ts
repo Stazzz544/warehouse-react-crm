@@ -1,5 +1,5 @@
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
-import { browserSessionPersistence, createUserWithEmailAndPassword, setPersistence, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { ActionCreatorWithPayload, PayloadAction } from "@reduxjs/toolkit";
+import { browserSessionPersistence, createUserWithEmailAndPassword, onAuthStateChanged, setPersistence, signInWithEmailAndPassword } from "firebase/auth";
 import { AppDispatch } from "../../store/store";
 import { auth } from "./firebaseConfing";
 
@@ -33,49 +33,38 @@ const changeUserDisplayName = (login: string) => {
 	});
 }
 
-export const userAutentification = (email: string, password: string) => {
-	setPersistence(auth, browserSessionPersistence)
+export const signInFirebase = (
+	email: string, 
+	password: string, 
+	dispatch: AppDispatch) => {
+		setPersistence(auth, browserSessionPersistence)
 		.then(() => {
 			return signInWithEmailAndPassword(auth, email, password)
-				.then((userCredential) => {
-					// Signed in 
-					const user = userCredential.user;
-
-					console.log('пользователь авторизирован: ', user.displayName)
-				})
-				.catch((error) => {
-					const errorCode = error.code;
-					const errorMessage = error.message;
-				})
+			.then((userCredential) => {
+				
+			})
+			.catch((error) => {
+				const errorCode = error.code;
+				const errorMessage = error.message;
+			});
 		})
 		.catch((error) => {
-			// Handle Errors here.
 			const errorCode = error.code;
 			const errorMessage = error.message;
 		});
 }
 
 
-export const getCurretnUser = (
+export const autoLoginization = (
 	dispatch: AppDispatch,
 	action: ActionCreatorWithPayload<string | null>) => {
-	const user = auth.currentUser;
-	if (user !== null) {
-		// The user object has basic properties such as display name, email, etc.
-		const displayName = user.displayName;
-		const email = user.email;
-		const photoURL = user.photoURL;
-		const emailVerified = user.emailVerified;
-
-		// The user's ID, unique to the Firebase project. Do NOT use
-		// this value to authenticate with your backend server, if
-		// you have one. Use User.getToken() instead.
-		const uid = user.uid;
-		dispatch(action(displayName))
-	}
-	console.log('current user: ', user)
-	dispatch(action(null))
-	return user
+	onAuthStateChanged(auth, (user) => {
+		if (user) {
+			dispatch(action(user.displayName))
+			const uid = user.uid;
+			console.log(user)
+		} else {
+			dispatch(action(null))
+		}
+	});
 }
-
-
