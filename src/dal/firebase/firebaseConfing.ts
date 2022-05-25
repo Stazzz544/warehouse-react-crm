@@ -26,4 +26,3 @@ export const analytics = getAnalytics(app);
 export const db = getDatabase();
 export const dbRef = ref(getDatabase());
 export const auth = getAuth();
-
