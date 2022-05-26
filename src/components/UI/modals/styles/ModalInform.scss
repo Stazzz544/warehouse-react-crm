@@ -12,7 +12,8 @@
 
 	&__wrapper {
 		background-color: white;
-		max-width: 400px;
+		flex: 1 1;
+		max-width: 550px;
 		min-width: 40%;
 		min-height: 25%;
 		display: flex;
@@ -20,7 +21,7 @@
 		animation: fide-in-top 0.2s ease-in;
 		transform: translateY(-30px);
 
-		&_error {
+		&-error {
 			border-top: 10px #fa1f1f solid;
 			background-color: rgb(255, 255, 255);
 			&::after{
@@ -35,7 +36,7 @@
 			}
 		}
 
-		&_success {
+		&-success {
 			border-top: 10px #25fc25 solid;
 			background-color: rgb(255, 255, 255);
 		}

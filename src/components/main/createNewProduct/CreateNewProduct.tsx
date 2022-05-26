@@ -1,38 +1,29 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { fetchProducts, getProductTypes } from '../../../dal/firebase/getDataFromDb'
 import { createNewProductInDb } from '../../../dal/firebase/pushDataToDb'
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux'
-import { MaterialTypes } from '../../../models/ICreateNewProductSlice'
 import { chooseTypeOfMaterial, fetchMaterialsFromDb, fetchMaterialsFromDbError, fetchMaterialsFromDbSuccess, setNameOfNewProductInputValue, setSuccessText } from '../../../store/reducers/createNewProductSlice'
 import { fetchProductsFromDbError, fetchProductsFromDbSuccess } from '../../../store/reducers/fetchProductsFromDbSlice'
 import DirectoryTitle from '../../UI/directoryTitle/DirectoryTitle'
 import './styles/CreateNewProduct.scss'
-import Error from '../../UI/modals/Error'
-import Success from '../../UI/modals/Success'
 import Dropdown from '../../UI/dropdown/Dropdown'
 import ConfirmGreenBtn from '../../UI/buttons/confirmGreenBtn/ConfirmGreenBtn'
+import { showErrorModal, showSuccessModal } from '../../../store/reducers/showInformModalSlice'
 
 
 const CreateNewProduct = () => {
 	const dispatch = useAppDispatch()
 
-	
-	
 	const { 
 		materialTypes, 
 		choisenTypeOfMaterial, 
 		nameOfNewProductInputValue,
-		error: newProductError,
-		successText: newProductSuccess,
 	} = useAppSelector(state => state.createNewProducReducer)
 
 	const { products } = useAppSelector(state => state.fetchProductsFromDbReducer)
 	
-	
-
 	const isProductConsist = () => {
-		
 		let isConsist = false;
 		if (!products[choisenTypeOfMaterial]) return false
 
@@ -43,8 +34,6 @@ const CreateNewProduct = () => {
 		}
 		return isConsist
 	}
-
-	// const [dropdown, setDropdown] = useState(false)
 
 	useEffect(() => {
 		dispatch(fetchMaterialsFromDb(true))
@@ -58,19 +47,18 @@ const CreateNewProduct = () => {
 	const createNewProduct = () => {
 		
 		if (isProductConsist()) {
-			dispatch(fetchMaterialsFromDbError('Такой товар уже есть в базе'))
+			dispatch(showErrorModal({messageModal: 'Такой товар уже есть в базе', buttonModalText: 'Упс'}))
 		} else if (!nameOfNewProductInputValue) {
-			dispatch(fetchMaterialsFromDbError('Не введено название товара'))
+			dispatch(showErrorModal({messageModal: 'Не введено название товара', buttonModalText: 'Упс'}))
 		} else if (!choisenTypeOfMaterial) {
-			dispatch(fetchMaterialsFromDbError('Не выбран тип товара'))
+			dispatch(showErrorModal({messageModal: 'Не выбран тип товара', buttonModalText: 'Упс'}))
 		} else {
 			createNewProductInDb(nameOfNewProductInputValue, choisenTypeOfMaterial)
 			fetchProducts(dispatch, fetchProductsFromDbSuccess, fetchProductsFromDbError)
 			dispatch(setNameOfNewProductInputValue(''))
-			dispatch(setSuccessText('Товар был успешно добавлен в базу данных'))
+			dispatch(showSuccessModal({messageModal: 'Товар был успешно добавлен в базу данных', buttonModalText: 'Отлично!'}))
 		}
 	}
-
 
 	return (
 		<div className='CreateNewProduct'>
@@ -98,31 +86,7 @@ const CreateNewProduct = () => {
 						arrayItem={'material'}
 						actionForDispatch={chooseTypeOfMaterial}
 					/>
-
-
-
-
-					{/* <div onClick={() => { setDropdown(!dropdown) }} className='product-card__dropdown-wrapper'>
-
-						<div className="product-card__dropdown-list-item choisen">{choisenTypeOfMaterial? choisenTypeOfMaterial: 'Материал не выбран'}</div>
-
-						<div className={!dropdown ? "product-card__dropdown-list" : "product-card__dropdown-list active"}>
-							{
-								materialTypes.map((item: MaterialTypes) => {
-									return (
-										<div
-											onClick={()=>{dispatch(chooseTypeOfMaterial(item.material))}}
-											key={item.id}
-											className="product-card__dropdown-list-item">
-											{item.material}
-										</div>
-									)
-								})
-							}
-						</div>
-					</div> */}
-
-					
+				
 				</div>
 
 				<div className="product-card__button-wrapper">
@@ -133,15 +97,7 @@ const CreateNewProduct = () => {
 
 			</div>
 
-			{newProductError ? 
-				<Error errorText={newProductError} closeModal={fetchMaterialsFromDbError}/>:false
-			}
-			{newProductSuccess ? 
-				<Success successText={newProductSuccess} closeModal={setSuccessText}/>:false
-			}
 		</div>
-
-
 	)
 }
 

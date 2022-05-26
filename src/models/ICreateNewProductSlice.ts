@@ -4,7 +4,6 @@ export interface createNewProductSliceState {
 	error: string
 	choisenTypeOfMaterial: string
 	nameOfNewProductInputValue: string
-	successText: string
 }
 
 export interface MaterialTypes  {

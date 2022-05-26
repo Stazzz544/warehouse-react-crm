@@ -6,7 +6,6 @@ const initialState: createNewProductSliceState = {
 	materialTypes: [],
 	isLoading: false,
 	error: '',
-	successText: '',
 	choisenTypeOfMaterial: '',
 	nameOfNewProductInputValue: '',
 }
@@ -23,7 +22,6 @@ export const createNewProductSlice = createSlice({
 			state.materialTypes = action.payload
 			state.isLoading = false
 			state.error = ''
-			state.successText = ''
 		},
 		fetchMaterialsFromDbError(state, action: PayloadAction<string>) {
 			state.isLoading = false
@@ -35,10 +33,6 @@ export const createNewProductSlice = createSlice({
 		setNameOfNewProductInputValue(state, action: PayloadAction<string>) {
 			state.nameOfNewProductInputValue = action.payload
 		},
-		setSuccessText(state, action: PayloadAction<string>) {
-			state.successText = action.payload
-		},
-
 	}
 })
 
@@ -51,5 +45,4 @@ export const {
 	fetchMaterialsFromDbError, 
 	fetchMaterialsFromDb,
 	setNameOfNewProductInputValue,
-	setSuccessText
 } = createNewProductSlice.actions
