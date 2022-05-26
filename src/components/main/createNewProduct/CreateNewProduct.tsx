@@ -8,8 +8,8 @@ import { chooseTypeOfMaterial, fetchMaterialsFromDb, fetchMaterialsFromDbError, 
 import { fetchProductsFromDbError, fetchProductsFromDbSuccess } from '../../../store/reducers/fetchProductsFromDbSlice'
 import DirectoryTitle from '../../UI/directoryTitle/DirectoryTitle'
 import './styles/CreateNewProduct.scss'
-import Error from '../modals/Error'
-import Success from '../modals/Success'
+import Error from '../../UI/modals/Error'
+import Success from '../../UI/modals/Success'
 import Dropdown from '../../UI/dropdown/Dropdown'
 import ConfirmGreenBtn from '../../UI/buttons/confirmGreenBtn/ConfirmGreenBtn'
 

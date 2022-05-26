@@ -4,18 +4,14 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/redux'
 import './styles/customCheckbox.scss'
 
 interface TProps {
-	checked: boolean
+	checkStatus: boolean
 	action: any
 }
 
 const CustomCheckbox = (props: TProps) => {
-	const {rememberMe} = useAppSelector(state => state.AutentificationReducer)
-	const dispatch = useAppDispatch()
-	console.log('render')
 
-	const checkboxChangeValue = useCallback(() => {
-		dispatch(props.action(!props.checked))
-	}, [rememberMe])
+	const dispatch = useAppDispatch()
+	const checkboxChangeValue = () => dispatch(props.action(!props.checkStatus))
 
 
 	return (
@@ -23,10 +19,10 @@ const CustomCheckbox = (props: TProps) => {
 			<div className="confirm-checkbox__discription-text">- запомнить меня</div>
 			<label
 			
-			className= {props.checked ? 'confirm-checkbox__label checked':'confirm-checkbox__label'}>
+			className= {props.checkStatus ? 'confirm-checkbox__label checked':'confirm-checkbox__label'}>
 				<input 
 				onClick={checkboxChangeValue}
-				defaultChecked={props.checked}
+				defaultChecked={props.checkStatus}
 				className='confirm-checkbox__checkbox' 
 				type='checkbox'/>
 			</label>

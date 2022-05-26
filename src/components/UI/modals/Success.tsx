@@ -6,7 +6,7 @@ type TProps ={
 	closeModal: any
 }
 
-const Success: React.FC<TProps>= (props) => {
+const Success= (props:TProps) => {
 	const dispatch = useAppDispatch()
 	
 	return (

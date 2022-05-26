@@ -1,11 +1,11 @@
 import { signInFirebase } from '../../../dal/firebase/autentification'
-import { useAppSelector } from '../../../hooks/redux'
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux'
 import { setEmailInputValue, setPasswordInputValue, setRememberMe } from '../../../store/reducers/autentificationSlice'
 import AuthBtn from '../../UI/auth/btn/AuthBtn'
 import AuthInput from '../../UI/auth/input/AuthInput'
 import AuthTitle from '../../UI/auth/title/AuthTitle'
 import CustomCheckbox from '../../UI/customCheckbox/CustomCheckbox'
-import './styles/SingIn.scss'
+import './styles/SingIn-Up.scss'
 
 const SignIn = () => {
 
@@ -15,6 +15,13 @@ const SignIn = () => {
 		rememberMe
 	} = useAppSelector(state => state.AutentificationReducer)
 
+	const signInFirebaseFuncWrapper = () => {
+		signInFirebase(
+			userEmailInputValue,
+			userPasswordInputValue,
+			rememberMe,
+		)
+	}
 
 	return (
 		<div className='sing'>
@@ -38,10 +45,10 @@ const SignIn = () => {
 							type={'password'} />
 					</div>
 
-					<div className="sing__input-wrapper">
+					<div className="sing__input-wrapper checkbox">
 						<CustomCheckbox
 						action={setRememberMe}
-						checked={rememberMe}
+						checkStatus={rememberMe}
 						/>
 					</div>
 
@@ -51,9 +58,7 @@ const SignIn = () => {
 				<div className="sing__btn-wrapper">
 					<AuthBtn 
 						btnText={'Авторизироваться'}
-						userEmail={userEmailInputValue}
-						userPassword={userPasswordInputValue}
-						btnFunc={signInFirebase}
+						btnFunc={signInFirebaseFuncWrapper}
 						btnColor={'#24DD3C'} />
 				</div>
 

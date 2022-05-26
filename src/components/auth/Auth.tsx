@@ -1,6 +1,6 @@
 import {  useState } from "react"
-import SignIn from "./singIn/SingIn"
-import SignUp from "./singUp/SingUp"
+import SignIn from "./singIn-Up/SingIn"
+import SignUp from "./singIn-Up/SingUp"
 import './styles/Auth.scss'
 import background from '../../img/auth/bg.jpg'
 import logo from '../../img/auth/logo.svg'
@@ -9,7 +9,7 @@ import logo from '../../img/auth/logo.svg'
 
 const Auth = () => {
 
-	const [isNewUser, setIsNewUser] = useState(false)
+	const [isNewUser, setIsNewUser] = useState(true)
 
 	return (
 		<div className="auth">
@@ -26,13 +26,13 @@ const Auth = () => {
 					<div className="auth__form">
 						<div className="auth__form-btn-wrapper">
 							<button
-								onClick={() => setIsNewUser(false)}
+								onClick={() => setIsNewUser(true)}
 								className="auth__signIn-btn">
 								<span className="auth__signIn-btn-span" >Регистрация</span>
 							</button>
 
 							<button
-								onClick={() => setIsNewUser(true)}
+								onClick={() => setIsNewUser(false)}
 								className="auth__signUp-btn">
 								<span className="auth__signIn-btn-span">Вход</span>
 							</button>

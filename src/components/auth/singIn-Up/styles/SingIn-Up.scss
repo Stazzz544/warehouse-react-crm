@@ -5,6 +5,9 @@
 	&__input-wrapper {
 		margin-top: 15px;
 	}
+	&__input-wrapper.checkbox {
+		margin-top: 35px;
+	}
 	&__all-inp-and-btn-flex-wrapper{
 		height: 100%;
 		display: flex;

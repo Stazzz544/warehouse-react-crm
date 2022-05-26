@@ -1,6 +1,7 @@
 import { createNewAccount } from '../../../dal/firebase/autentification'
-import { useAppSelector } from '../../../hooks/redux'
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux'
 import {
+	clearAllFields,
 	setEmailInputValue,
 	setPasswordInputValue,
 	setUserLoginInputValue,
@@ -8,15 +9,28 @@ import {
 import AuthBtn from '../../UI/auth/btn/AuthBtn'
 import AuthInput from '../../UI/auth/input/AuthInput'
 import AuthTitle from '../../UI/auth/title/AuthTitle'
-import './styles/SingUp.scss'
+import './styles/SingIn-Up.scss'
 
 const SignUp = () => {
+	const dispatch = useAppDispatch()
 
 	const {
 		userLoginInputValue,
 		userPasswordInputValue,
-		userEmailInputValue
+		userEmailInputValue,
+		rememberMe
 	} = useAppSelector(state => state.AutentificationReducer)
+
+	const createNewAccountFuncWrapper = () => {
+		createNewAccount(
+			userEmailInputValue,
+			userPasswordInputValue,
+			rememberMe,
+			userLoginInputValue,
+			clearAllFields,
+			dispatch,
+		)
+	}
 
 	return (
 		<div className='sing'>
@@ -50,12 +64,10 @@ const SignUp = () => {
 
 				<div className="sing__btn-wrapper">
 					<AuthBtn 
-					userLogin={userLoginInputValue}
-					userEmail={userEmailInputValue}
-					userPassword={userPasswordInputValue}
-					btnFunc={createNewAccount}
+					btnFunc={createNewAccountFuncWrapper}
 					btnText={'Зарегистироваться'} 
-					btnColor={'#234687'} />
+					btnColor={'#234687'}
+					/>
 				</div>
 
 			</div>

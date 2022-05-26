@@ -4,8 +4,8 @@
 	justify-content: start;
 	column-gap: 9px;
 	align-items: center;
-	
-	
+
+
 
 	&__discription-text {
 		font-size: 15px;
@@ -13,19 +13,57 @@
 
 	&__label {
 		display: block;
-		width: 20px;
-		height: 20px;
-		border: 3px blue solid;
-
+		width: 21px;
+		height: 21px;
+		border: 3px #204884 solid;
 		position: relative;
+		cursor: pointer;
+		transition: all 0.3s;
+		
+		&::after {
+			content: "";
+			position: absolute;
+			width: 14px;
+			height: 3px;
+			background: #24DD3C;
+			top: 7px;
+			left: 3px;
+			transform: rotate(304deg) scale(0);
+			transition: all 0.3s;
+		}
 
+		&::before {
+			content: "";
+			position: absolute;
+			width: 7px;
+			height: 3px;
+			background: #24DD3C;
+			top: 8px;
+			left: 2px;
+			transform: rotate(53deg) scale(0);
+			transition: all 0.3s;
+		}
+	}
+
+	&__label.checked {
+		border: 2px #204884 solid;
+		border-radius: 50%;
+		transform: scale(1.2);
+		&::after {
+			transform: rotate(304deg) scale(0.8);
+			transition: all 0.3s;
+		}
+
+		&::before {
+			transform: rotate(53deg) scale(0.8);
+			transition: all 0.3s;
+		}
 	}
 
 	&__checkbox {
-		display: block;
+		display: none;
 		position: absolute;
-		top: 30px;
-		
 	}
+
 
 }
