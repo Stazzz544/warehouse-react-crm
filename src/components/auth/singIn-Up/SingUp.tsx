@@ -6,6 +6,8 @@ import {
 	setPasswordInputValue,
 	setUserLoginInputValue,
 } from '../../../store/reducers/AutentificationSlice'
+import { showErrorInformModal } from '../../../store/reducers/InformModalSlice'
+import { isLoaderActive } from '../../../store/reducers/LoaderSpinnerSlice'
 import { showSuccessModalWithChoise } from '../../../store/reducers/ModalWithChoiseSlice'
 import AuthBtn from '../../UI/auth/btn/AuthBtn'
 import AuthInput from '../../UI/auth/input/AuthInput'
@@ -20,23 +22,42 @@ const SignUp = () => {
 		userPasswordInputValue,
 		userEmailInputValue,
 	} = useAppSelector(state => state.AutentificationReducer)
-	
 
-	const modalWithChoiseActiveFuncSuccess = () => {
-		const text:string = 'Ваша учётная запись зарегистрирована! Желаете войти в систему?'
-		
+
+	const modalWithChoiseActiveFuncSuccess = (): void => {
+		const text: string = 'Ваша учётная запись зарегистрирована! Желаете войти в систему?'
+
 		showSuccessModalWithChoise({
 			modalWithChoiseMessage: text,
 			modalWithChoiseButtonLeftText: 'да',
 			modalWithChoiseButtonRightText: 'нет',
-		 })
+		})
 	}
 
 	const modalWithChoiseActiveFuncError = () => {
-			// функция обработки ошибки при регистрации
+		// функция обработки ошибки при регистрации
+	}
+
+	const validationForm = () => {
+		const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
+
+		if (userLoginInputValue.length < 2) {
+			dispatch(showErrorInformModal({ informModalmessage: 'Минимальная длина логина 2 символа', informModalButtonText: 'понятно' }))
+			return false
+		} else if (!EMAIL_REGEXP.test(userEmailInputValue)) {
+			dispatch(showErrorInformModal({ informModalmessage: 'Некорректно введён E-mail адресс. Формат адреса test@test.com(ru...)', informModalButtonText: 'понятно' }))
+			return false
+		} else if(userPasswordInputValue.length < 6) {
+			dispatch(showErrorInformModal({ informModalmessage: 'Минимальная длина пароля 6 символов', informModalButtonText: 'понятно' }))
+			return false
+		}
+		return true
 	}
 
 	const createNewAccountFuncWrapper = () => {
+
+		if (!validationForm()) return false
+		
 		createNewAccount(
 			userEmailInputValue,
 			userPasswordInputValue,
@@ -45,6 +66,8 @@ const SignUp = () => {
 			dispatch,
 			modalWithChoiseActiveFuncSuccess,
 			modalWithChoiseActiveFuncError,
+			showErrorInformModal,
+			isLoaderActive,
 		)
 	}
 
@@ -79,10 +102,10 @@ const SignUp = () => {
 				</div>
 
 				<div className="sing__btn-wrapper">
-					<AuthBtn 
-					btnFunc={createNewAccountFuncWrapper}
-					btnText={'Зарегистироваться'} 
-					btnColor={'#234687'}
+					<AuthBtn
+						btnFunc={createNewAccountFuncWrapper}
+						btnText={'Зарегистироваться'}
+						btnColor={'#234687'}
 					/>
 				</div>
 

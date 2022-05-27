@@ -2,6 +2,7 @@ import { signInFirebase } from '../../../dal/firebase/autentification'
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux'
 import { setEmailInputValue, setPasswordInputValue, setRememberMe } from '../../../store/reducers/AutentificationSlice'
 import { showErrorInformModal, showSuccessInformModal } from '../../../store/reducers/InformModalSlice'
+import { isLoaderActive } from '../../../store/reducers/LoaderSpinnerSlice'
 import AuthBtn from '../../UI/auth/btn/AuthBtn'
 import AuthInput from '../../UI/auth/input/AuthInput'
 import AuthTitle from '../../UI/auth/title/AuthTitle'
@@ -24,9 +25,11 @@ const SignIn = () => {
 			rememberMe,
 			showSuccessInformModal,
 			showErrorInformModal,
+			isLoaderActive,
 			dispatch,
 		)
 	}
+	
 
 	return (
 		<div className='sing'>

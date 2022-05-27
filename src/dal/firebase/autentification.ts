@@ -16,29 +16,35 @@ import { auth } from "./firebaseConfing";
 
 export const createNewAccount = (
 	email: string,
-	password: string,
+	password: string, 
 	login: string,
 	actionClearAllFields: any,
 	dispatch: AppDispatch,
 	modalWithChoiseActiveFuncSuccess: any,
 	modalWithChoiseActiveFuncError: any,
+	showErrorInformModal: ActionCreatorWithPayload<InformModalAction>,
+	isLoaderActive: ActionCreatorWithPayload<boolean>,
 ) => {
+	dispatch(isLoaderActive(true))
 	createUserWithEmailAndPassword(auth, email, password, )
 		.then((userCredential) => { // Signed in 	
 			const user = userCredential.user;
-			console.log('userWasCreated:', user.displayName)	
+			console.log('userWasCreated:', user.displayName)	 
 		})
 		.then(() => {//изменение имени юзера с дефолтного на введёное
 			changeUserDisplayName(login)
 			logoutFirebase(dispatch, actionClearAllFields)
 		})
 		.then(()=>{
+			dispatch(isLoaderActive(false))
 			modalWithChoiseActiveFuncSuccess()
 		})
 		.catch((error) => {
 			const errorCode = error.code;
 			const errorMessage = error.message;
-			modalWithChoiseActiveFuncError()
+			console.log(errorMessage)
+			dispatch(isLoaderActive(false))
+			dispatch(showErrorInformModal({informModalmessage: errorMessage, informModalButtonText: 'понятно'}))
 		});
 }
 
@@ -60,26 +66,29 @@ export const signInFirebase = (
 	rememberMe = false,
 	modalSuccessFunc: ActionCreatorWithPayload<InformModalAction, string>,
 	modalErrorFunc: ActionCreatorWithPayload<InformModalAction, string>,
+	isLoaderActive: ActionCreatorWithPayload<boolean>,
 	dispatch: AppDispatch
 ) => {
+
+	dispatch(isLoaderActive(true))
 	if (rememberMe) {
 		//enter with remember me
 		setPersistence(auth, browserLocalPersistence)
 			.then(() => {
-				singIn(email, password, modalSuccessFunc, modalErrorFunc, dispatch)
-				console.log('user remembered')
+				singIn(email, password, modalSuccessFunc, modalErrorFunc, isLoaderActive, dispatch)
 			})
 			.catch((error) => {
 				const errorCode = error.code;
 				const errorMessage = error.message;
 				modalErrorFunc(errorMessage)
-
+				dispatch(isLoaderActive(false))
 			});
+
 	} else {
 
 		setPersistence(auth, browserSessionPersistence)
 			.then(() => {
-				singIn(email, password, modalSuccessFunc, modalErrorFunc, dispatch)
+				singIn(email, password, modalSuccessFunc, modalErrorFunc, isLoaderActive, dispatch)
 				console.log('user not remembered')
 			})
 			.catch((error) => {
@@ -87,6 +96,7 @@ export const signInFirebase = (
 				const errorMessage = error.message;
 				
 				modalErrorFunc(errorMessage)
+				dispatch(isLoaderActive(false))
 			});
 	}
 }
@@ -96,19 +106,22 @@ const singIn = async (
 	password: string,
 	modalSuccessFunc: ActionCreatorWithPayload<InformModalAction, string>,
 	modalErrorFunc: ActionCreatorWithPayload<InformModalAction, string>,
+	isLoaderActive: ActionCreatorWithPayload<boolean>,
 	dispatch: AppDispatch
 
 ) => {
 	return await signInWithEmailAndPassword(auth, email, password)
 		.then((userCredential) => {
-
+			console.log(userCredential, ' <--- user remembered')
+			dispatch(isLoaderActive(false))
 		})
 		.catch((error) => {
 			console.log('errorrrrrr')
 			const errorCode = error.code;
-			const errorMessage = error.message;
+			const errorMessage = error.message
 			console.log('errorrrrrr',errorCode,  errorMessage, error)
 			dispatch(modalErrorFunc({informModalmessage: errorMessage, informModalButtonText:'Понятно'}))
+			dispatch(isLoaderActive(false))
 		});
 }
 

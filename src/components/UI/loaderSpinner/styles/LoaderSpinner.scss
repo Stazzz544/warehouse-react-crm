@@ -1,6 +1,4 @@
-
-
-.registrtion-info-modal {
+.loader-wrapper {
 	position: absolute;
 	display: flex;
 	justify-content: center;
@@ -11,12 +9,11 @@
 	bottom: 0;
 	background-color: rgba(0, 0, 0, 0.281);
 	animation: fide-in 0.2s ease-in;
-	z-index: 10000;
-	
-	&__wrapper {
-		flex: 1 1;
-		max-width: 400px;
-		background: #ffffff;
-		border-radius: 10px;
-	}
+	z-index: 10001;
+}
+.loader {
+
+		&__img-wrapper {}
+
+		&__img {}
 }

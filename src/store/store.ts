@@ -4,6 +4,7 @@ import ProductsFromDbReducer from './reducers/ProductsFromDbSlice'
 import AutentificationReducer from './reducers/AutentificationSlice'
 import InformModalReducer from './reducers/InformModalSlice'
 import ModalWithChoiseReducer from './reducers/ModalWithChoiseSlice'
+import LoaderSpinner from './reducers/LoaderSpinnerSlice'
 
 const rootReducer = combineReducers({
 	CreateNewProducReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
 	AutentificationReducer,
 	InformModalReducer,
 	ModalWithChoiseReducer,
+	LoaderSpinner,
 })
 
 export const setupStore = () => {

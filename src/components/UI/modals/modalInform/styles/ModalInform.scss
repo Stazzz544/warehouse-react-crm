@@ -9,6 +9,7 @@
 	bottom: 0;
 	background-color: rgba(0, 0, 0, 0.281);
 	animation: fide-in 0.2s ease-in;
+	z-index: 10000;
 
 	&__wrapper {
 		background-color: white;
@@ -54,7 +55,7 @@
 		margin-top: 20px;
 		text-align: center;
 		font-size: 20px;
-
+		line-height: 27px;
 	}
 
 	&__bnt {

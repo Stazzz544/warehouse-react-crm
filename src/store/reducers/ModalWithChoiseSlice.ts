@@ -10,7 +10,7 @@ interface ModalWithChoiseAction{
 
 const initialState: modalWithChoiseState = {
 	modalWithChoiseErrorText: false,
-	modalWithChoiseSuccessText: false,
+	modalWithChoiseSuccessText: 'поздр',
 	modalWithChoiseButtonLeftText: '',
 	modalWithChoiseButtonRightText: '',
 }
