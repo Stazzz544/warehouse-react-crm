@@ -1,5 +1,5 @@
 export interface showInformModalState  {
-	errorModalText: string | false,
-	successModalText: string | false,
-	buttonModalText: string,
+	informModalErrorText: string | false,
+	informModalSuccessText: string | false,
+	informModalButtonText: string,
 }

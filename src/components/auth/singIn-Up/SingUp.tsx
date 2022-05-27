@@ -5,7 +5,8 @@ import {
 	setEmailInputValue,
 	setPasswordInputValue,
 	setUserLoginInputValue,
-} from '../../../store/reducers/autentificationSlice'
+} from '../../../store/reducers/AutentificationSlice'
+import { showSuccessModalWithChoise } from '../../../store/reducers/ModalWithChoiseSlice'
 import AuthBtn from '../../UI/auth/btn/AuthBtn'
 import AuthInput from '../../UI/auth/input/AuthInput'
 import AuthTitle from '../../UI/auth/title/AuthTitle'
@@ -18,17 +19,32 @@ const SignUp = () => {
 		userLoginInputValue,
 		userPasswordInputValue,
 		userEmailInputValue,
-		rememberMe
 	} = useAppSelector(state => state.AutentificationReducer)
+	
+
+	const modalWithChoiseActiveFuncSuccess = () => {
+		const text:string = 'Ваша учётная запись зарегистрирована! Желаете войти в систему?'
+		
+		showSuccessModalWithChoise({
+			modalWithChoiseMessage: text,
+			modalWithChoiseButtonLeftText: 'да',
+			modalWithChoiseButtonRightText: 'нет',
+		 })
+	}
+
+	const modalWithChoiseActiveFuncError = () => {
+			// функция обработки ошибки при регистрации
+	}
 
 	const createNewAccountFuncWrapper = () => {
 		createNewAccount(
 			userEmailInputValue,
 			userPasswordInputValue,
-			rememberMe,
 			userLoginInputValue,
 			clearAllFields,
 			dispatch,
+			modalWithChoiseActiveFuncSuccess,
+			modalWithChoiseActiveFuncError,
 		)
 	}
 

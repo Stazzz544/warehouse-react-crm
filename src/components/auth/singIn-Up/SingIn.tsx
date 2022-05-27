@@ -1,6 +1,7 @@
 import { signInFirebase } from '../../../dal/firebase/autentification'
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux'
-import { setEmailInputValue, setPasswordInputValue, setRememberMe } from '../../../store/reducers/autentificationSlice'
+import { setEmailInputValue, setPasswordInputValue, setRememberMe } from '../../../store/reducers/AutentificationSlice'
+import { showErrorInformModal, showSuccessInformModal } from '../../../store/reducers/InformModalSlice'
 import AuthBtn from '../../UI/auth/btn/AuthBtn'
 import AuthInput from '../../UI/auth/input/AuthInput'
 import AuthTitle from '../../UI/auth/title/AuthTitle'
@@ -8,6 +9,7 @@ import CustomCheckbox from '../../UI/customCheckbox/CustomCheckbox'
 import './styles/SingIn-Up.scss'
 
 const SignIn = () => {
+	const dispatch = useAppDispatch()
 
 	const {
 		userPasswordInputValue,
@@ -20,6 +22,9 @@ const SignIn = () => {
 			userEmailInputValue,
 			userPasswordInputValue,
 			rememberMe,
+			showSuccessInformModal,
+			showErrorInformModal,
+			dispatch,
 		)
 	}
 
@@ -47,8 +52,8 @@ const SignIn = () => {
 
 					<div className="sing__input-wrapper checkbox">
 						<CustomCheckbox
-						action={setRememberMe}
-						checkStatus={rememberMe}
+							action={setRememberMe}
+							checkStatus={rememberMe}
 						/>
 					</div>
 

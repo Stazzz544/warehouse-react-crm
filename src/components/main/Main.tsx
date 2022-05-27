@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { fetchProducts } from '../../dal/firebase/getDataFromDb'
 import { useAppDispatch } from '../../hooks/redux'
-import { fetchProductsFromDb, fetchProductsFromDbError, fetchProductsFromDbSuccess } from '../../store/reducers/fetchProductsFromDbSlice'
+import { fetchProductsFromDb, fetchProductsFromDbError, fetchProductsFromDbSuccess } from '../../store/reducers/ProductsFromDbSlice'
 import AdmissioProduct from './admissioProduct/AdmissioProduct'
 import CreateNewProduct from './createNewProduct/CreateNewProduct'
 import CurrentStateWarehouse from './currentStateWarehouse/CurrentStateWarehouse'
@@ -43,6 +43,3 @@ const Main = () => {
 
 export default Main
 
-function dispatch(arg0: any) {
-	throw new Error('Function not implemented.')
-}

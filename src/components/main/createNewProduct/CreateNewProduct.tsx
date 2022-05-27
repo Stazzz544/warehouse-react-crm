@@ -3,13 +3,13 @@ import { useEffect } from 'react'
 import { fetchProducts, getProductTypes } from '../../../dal/firebase/getDataFromDb'
 import { createNewProductInDb } from '../../../dal/firebase/pushDataToDb'
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux'
-import { chooseTypeOfMaterial, fetchMaterialsFromDb, fetchMaterialsFromDbError, fetchMaterialsFromDbSuccess, setNameOfNewProductInputValue, setSuccessText } from '../../../store/reducers/createNewProductSlice'
-import { fetchProductsFromDbError, fetchProductsFromDbSuccess } from '../../../store/reducers/fetchProductsFromDbSlice'
+import { chooseTypeOfMaterial, fetchMaterialsFromDb, fetchMaterialsFromDbError, fetchMaterialsFromDbSuccess, setNameOfNewProductInputValue } from '../../../store/reducers/NewProductSlice'
+import { fetchProductsFromDbError, fetchProductsFromDbSuccess } from '../../../store/reducers/ProductsFromDbSlice'
 import DirectoryTitle from '../../UI/directoryTitle/DirectoryTitle'
 import './styles/CreateNewProduct.scss'
 import Dropdown from '../../UI/dropdown/Dropdown'
 import ConfirmGreenBtn from '../../UI/buttons/confirmGreenBtn/ConfirmGreenBtn'
-import { showErrorModal, showSuccessModal } from '../../../store/reducers/showInformModalSlice'
+import { showErrorInformModal, showSuccessInformModal } from '../../../store/reducers/InformModalSlice'
 
 
 const CreateNewProduct = () => {
@@ -19,9 +19,9 @@ const CreateNewProduct = () => {
 		materialTypes, 
 		choisenTypeOfMaterial, 
 		nameOfNewProductInputValue,
-	} = useAppSelector(state => state.createNewProducReducer)
+	} = useAppSelector(state => state.CreateNewProducReducer)
 
-	const { products } = useAppSelector(state => state.fetchProductsFromDbReducer)
+	const { products } = useAppSelector(state => state.ProductsFromDbReducer)
 	
 	const isProductConsist = () => {
 		let isConsist = false;
@@ -47,16 +47,16 @@ const CreateNewProduct = () => {
 	const createNewProduct = () => {
 		
 		if (isProductConsist()) {
-			dispatch(showErrorModal({messageModal: 'Такой товар уже есть в базе', buttonModalText: 'Упс'}))
+			dispatch(showErrorInformModal({informModalmessage: 'Такой товар уже есть в базе', informModalButtonText: 'Упс'}))
 		} else if (!nameOfNewProductInputValue) {
-			dispatch(showErrorModal({messageModal: 'Не введено название товара', buttonModalText: 'Упс'}))
+			dispatch(showErrorInformModal({informModalmessage: 'Не введено название товара', informModalButtonText: 'Упс'}))
 		} else if (!choisenTypeOfMaterial) {
-			dispatch(showErrorModal({messageModal: 'Не выбран тип товара', buttonModalText: 'Упс'}))
+			dispatch(showErrorInformModal({informModalmessage: 'Не выбран тип товара', informModalButtonText: 'Упс'}))
 		} else {
 			createNewProductInDb(nameOfNewProductInputValue, choisenTypeOfMaterial)
 			fetchProducts(dispatch, fetchProductsFromDbSuccess, fetchProductsFromDbError)
 			dispatch(setNameOfNewProductInputValue(''))
-			dispatch(showSuccessModal({messageModal: 'Товар был успешно добавлен в базу данных', buttonModalText: 'Отлично!'}))
+			dispatch(showSuccessInformModal({informModalmessage: 'Товар был успешно добавлен в базу данных', informModalButtonText: 'Отлично!'}))
 		}
 	}
 

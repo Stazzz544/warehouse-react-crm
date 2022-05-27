@@ -1,8 +1,8 @@
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
-import { child, get, getDatabase, ref, onValue } from "firebase/database";
-import { MaterialTypes } from "../../models/ICreateNewProductSlice";
+import { child, get } from "firebase/database";
+import { MaterialTypes } from "../../models/ICreateNewProduct";
 import { AppDispatch } from "../../store/store";
-import { db, dbRef } from "./firebaseConfing";
+import { dbRef } from "./firebaseConfing";
 
 
 export const getProductTypes = async (

@@ -1,7 +1,7 @@
 import { createDispatchHook } from 'react-redux'
 import { logoutFirebase } from '../../../dal/firebase/autentification'
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux'
-import { clearAllFields } from '../../../store/reducers/autentificationSlice'
+import { clearAllFields } from '../../../store/reducers/AutentificationSlice'
 import ConfirmGreenBtn from '../../UI/buttons/confirmGreenBtn/ConfirmGreenBtn'
 import DirectoryTitle from '../../UI/directoryTitle/DirectoryTitle'
 import './styles/Profile.scss'

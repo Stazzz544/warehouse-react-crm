@@ -13,7 +13,7 @@ const initialState: AutentificationState = {
 }
 
 const AutentificationSlise = createSlice({
-	name: 'autentificationSlise',
+	name: 'AutentificationSlise',
 	initialState,
 	reducers: {
 		fetchCurrentUser(state, action: PayloadAction<string | null>) {

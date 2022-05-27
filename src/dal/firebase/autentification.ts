@@ -9,7 +9,7 @@ import {
 	signOut,
 	updateProfile,
 } from "firebase/auth";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { InformModalAction } from "../../store/reducers/InformModalSlice";
 import { AppDispatch } from "../../store/store";
 import { auth } from "./firebaseConfing";
 
@@ -17,10 +17,11 @@ import { auth } from "./firebaseConfing";
 export const createNewAccount = (
 	email: string,
 	password: string,
-	rememberMe = false,
 	login: string,
 	actionClearAllFields: any,
 	dispatch: AppDispatch,
+	modalWithChoiseActiveFuncSuccess: any,
+	modalWithChoiseActiveFuncError: any,
 ) => {
 	createUserWithEmailAndPassword(auth, email, password, )
 		.then((userCredential) => { // Signed in 	
@@ -32,11 +33,12 @@ export const createNewAccount = (
 			logoutFirebase(dispatch, actionClearAllFields)
 		})
 		.then(()=>{
-			
+			modalWithChoiseActiveFuncSuccess()
 		})
 		.catch((error) => {
 			const errorCode = error.code;
 			const errorMessage = error.message;
+			modalWithChoiseActiveFuncError()
 		});
 }
 
@@ -56,28 +58,35 @@ export const signInFirebase = (
 	email: string,
 	password: string,
 	rememberMe = false,
+	modalSuccessFunc: ActionCreatorWithPayload<InformModalAction, string>,
+	modalErrorFunc: ActionCreatorWithPayload<InformModalAction, string>,
+	dispatch: AppDispatch
 ) => {
 	if (rememberMe) {
 		//enter with remember me
 		setPersistence(auth, browserLocalPersistence)
 			.then(() => {
-				singIn(email, password)
+				singIn(email, password, modalSuccessFunc, modalErrorFunc, dispatch)
 				console.log('user remembered')
 			})
 			.catch((error) => {
 				const errorCode = error.code;
 				const errorMessage = error.message;
+				modalErrorFunc(errorMessage)
+
 			});
 	} else {
 
 		setPersistence(auth, browserSessionPersistence)
 			.then(() => {
-				singIn(email, password)
+				singIn(email, password, modalSuccessFunc, modalErrorFunc, dispatch)
 				console.log('user not remembered')
 			})
 			.catch((error) => {
 				const errorCode = error.code;
 				const errorMessage = error.message;
+				
+				modalErrorFunc(errorMessage)
 			});
 	}
 }
@@ -85,14 +94,21 @@ export const signInFirebase = (
 const singIn = async (
 	email: string,
 	password: string,
+	modalSuccessFunc: ActionCreatorWithPayload<InformModalAction, string>,
+	modalErrorFunc: ActionCreatorWithPayload<InformModalAction, string>,
+	dispatch: AppDispatch
+
 ) => {
 	return await signInWithEmailAndPassword(auth, email, password)
 		.then((userCredential) => {
 
 		})
 		.catch((error) => {
+			console.log('errorrrrrr')
 			const errorCode = error.code;
 			const errorMessage = error.message;
+			console.log('errorrrrrr',errorCode,  errorMessage, error)
+			dispatch(modalErrorFunc({informModalmessage: errorMessage, informModalButtonText:'Понятно'}))
 		});
 }
 

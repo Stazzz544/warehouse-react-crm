@@ -1,14 +1,16 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import createNewProducReducer from './reducers/createNewProductSlice'
-import fetchProductsFromDbReducer from './reducers/fetchProductsFromDbSlice'
-import AutentificationReducer from './reducers/autentificationSlice'
-import showInformModalReducer from './reducers/showInformModalSlice'
+import CreateNewProducReducer from './reducers/NewProductSlice'
+import ProductsFromDbReducer from './reducers/ProductsFromDbSlice'
+import AutentificationReducer from './reducers/AutentificationSlice'
+import InformModalReducer from './reducers/InformModalSlice'
+import ModalWithChoiseReducer from './reducers/ModalWithChoiseSlice'
 
 const rootReducer = combineReducers({
-	createNewProducReducer,
-	fetchProductsFromDbReducer,
+	CreateNewProducReducer,
+	ProductsFromDbReducer,
 	AutentificationReducer,
-	showInformModalReducer,
+	InformModalReducer,
+	ModalWithChoiseReducer,
 })
 
 export const setupStore = () => {
