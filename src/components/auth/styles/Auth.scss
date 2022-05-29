@@ -75,11 +75,11 @@
 		position: relative;
 		transition: all 0.4s;
 		&:hover{
-			background:rgb(245, 225, 45);
+			background:$mainColorBrightYellow;
 			color: #000000;
 		}
 		&:hover::after{
-			background:rgb(245, 225, 45);
+			background:$mainColorBrightYellow;
 		}
 	}
 	&__signIn-btn{
@@ -104,14 +104,14 @@
 		
 	}
 	&__signUp-btn{
-		background: rgb(36, 221, 60);
+		background: $mainColorGreen;
 		color: rgb(255, 255, 255);
 		&::after{
 			content: '';
 			position: absolute;
 			width: 40px;
 			height: 100%;
-			background:  rgb(36, 221, 60);
+			background:  $mainColorGreen;
 			transform: rotate(-45deg);
 			z-index: 2;
 			top: 8px;

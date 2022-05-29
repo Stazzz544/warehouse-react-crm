@@ -1,12 +1,14 @@
+
+
 .confirm-green-btn{
 	color: #ffffff;
-	background: #42DD42;
+	background:  $mainColorGreen;
 	border-radius: 43px;
 	padding: 6px 14px;
 	font-size: 18px;
 	transition: all 0.3s;
 	&:hover{
-		background: rgb(245, 225, 45);
+		background: $mainColorBrightYellow;
 		color: #000000;
 	}
 }

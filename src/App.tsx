@@ -4,8 +4,8 @@ import Auth from "./components/auth/Auth";
 import Header from './components/header/Header';
 import Main from "./components/main/Main";
 import LoaderSpinner from "./components/UI/loaderSpinner/LoaderSpinner";
+import ModaAuthSuccess from "./components/UI/modals/modaAuthSuccess/ModalAuthSuccess";
 import ModalInform from "./components/UI/modals/modalInform/ModalInform";
-import ModalWithChoise from "./components/UI/modals/modalWithChoise/ModalWithChoise";
 
 import { autoLoginization } from "./dal/firebase/autentification";
 import { useAppDispatch, useAppSelector } from "./hooks/redux";
@@ -14,12 +14,13 @@ import './styles/App.scss';
 
 function App() {
 	const dispatch = useAppDispatch()
-	const { currentUser } = useAppSelector(state => state.AutentificationReducer)
+	const { currentUser, visibleModalAuthSuccess } = useAppSelector(state => state.AutentificationReducer)
 	const { informModalErrorText, informModalSuccessText, informModalButtonText } = useAppSelector(state => state.InformModalReducer)
 	const { modalWithChoiseSuccessText } = useAppSelector(state => state.ModalWithChoiseReducer)
 	const { loaderSpinnerActive } = useAppSelector(state => state.LoaderSpinner)
 
 	useEffect(() => {
+		console.log('useEffect app', Date.now())
 		autoLoginization(dispatch, fetchCurrentUser)
 	}, [])
 
@@ -33,7 +34,7 @@ function App() {
 					<Router>
 						<div className="app auth-active">
 							<Auth />
-							{modalWithChoiseSuccessText ? <ModalWithChoise /> : false}
+							{visibleModalAuthSuccess ? <ModaAuthSuccess /> : false}
 							{informModalErrorText ? <ModalInform informText={informModalErrorText} color={'red'} buttonModalText={informModalButtonText} /> : false}
 						</div>
 					</Router>

@@ -14,37 +14,46 @@ import { AppDispatch } from "../../store/store";
 import { auth } from "./firebaseConfing";
 
 
+
+const translateErrorMessage = (rusMessage: string, engMessage: string) => {
+	if (engMessage === 'Firebase: Error (auth/invalid-email).') {
+		rusMessage = 'Неверный E-mail или пароль'
+	} else if(engMessage === 'Firebase: Error (auth/network-request-failed).') {
+		rusMessage = 'Отсутствует интернет или проблемы на сервере'
+	}
+	return rusMessage
+}
+
 export const createNewAccount = (
 	email: string,
-	password: string, 
+	password: string,
 	login: string,
 	actionClearAllFields: any,
 	dispatch: AppDispatch,
-	modalWithChoiseActiveFuncSuccess: any,
-	modalWithChoiseActiveFuncError: any,
 	showErrorInformModal: ActionCreatorWithPayload<InformModalAction>,
 	isLoaderActive: ActionCreatorWithPayload<boolean>,
+	showModalAuthSuccess:  ActionCreatorWithPayload<boolean>,
 ) => {
 	dispatch(isLoaderActive(true))
-	createUserWithEmailAndPassword(auth, email, password, )
+	createUserWithEmailAndPassword(auth, email, password,)
 		.then((userCredential) => { // Signed in 	
 			const user = userCredential.user;
-			console.log('userWasCreated:', user.displayName)	 
+			console.log('userWasCreated:', user.displayName)
 		})
 		.then(() => {//изменение имени юзера с дефолтного на введёное
 			changeUserDisplayName(login)
-			logoutFirebase(dispatch, actionClearAllFields)
+			//logoutFirebase(dispatch, actionClearAllFields)
 		})
-		.then(()=>{
+		.then(() => {
 			dispatch(isLoaderActive(false))
-			modalWithChoiseActiveFuncSuccess()
+			dispatch(showModalAuthSuccess(true))
 		})
 		.catch((error) => {
 			const errorCode = error.code;
-			const errorMessage = error.message;
-			console.log(errorMessage)
+			let errorMessage = error.message
+			errorMessage = translateErrorMessage(errorMessage, error.message)
 			dispatch(isLoaderActive(false))
-			dispatch(showErrorInformModal({informModalmessage: errorMessage, informModalButtonText: 'понятно'}))
+			dispatch(showErrorInformModal({ informModalmessage: errorMessage, informModalButtonText: 'понятно' }))
 		});
 }
 
@@ -64,7 +73,6 @@ export const signInFirebase = (
 	email: string,
 	password: string,
 	rememberMe = false,
-	modalSuccessFunc: ActionCreatorWithPayload<InformModalAction, string>,
 	modalErrorFunc: ActionCreatorWithPayload<InformModalAction, string>,
 	isLoaderActive: ActionCreatorWithPayload<boolean>,
 	dispatch: AppDispatch
@@ -75,11 +83,12 @@ export const signInFirebase = (
 		//enter with remember me
 		setPersistence(auth, browserLocalPersistence)
 			.then(() => {
-				singIn(email, password, modalSuccessFunc, modalErrorFunc, isLoaderActive, dispatch)
+				singIn(email, password, modalErrorFunc, isLoaderActive, dispatch)
 			})
 			.catch((error) => {
 				const errorCode = error.code;
-				const errorMessage = error.message;
+				let errorMessage = error.message
+				errorMessage = translateErrorMessage(errorMessage, error.message)
 				modalErrorFunc(errorMessage)
 				dispatch(isLoaderActive(false))
 			});
@@ -88,23 +97,24 @@ export const signInFirebase = (
 
 		setPersistence(auth, browserSessionPersistence)
 			.then(() => {
-				singIn(email, password, modalSuccessFunc, modalErrorFunc, isLoaderActive, dispatch)
+				singIn(email, password, modalErrorFunc, isLoaderActive, dispatch)
 				console.log('user not remembered')
 			})
 			.catch((error) => {
 				const errorCode = error.code;
-				const errorMessage = error.message;
-				
+				let errorMessage = error.message
+				errorMessage = translateErrorMessage(errorMessage, error.message)
 				modalErrorFunc(errorMessage)
 				dispatch(isLoaderActive(false))
 			});
 	}
 }
 
+
+
 const singIn = async (
 	email: string,
 	password: string,
-	modalSuccessFunc: ActionCreatorWithPayload<InformModalAction, string>,
 	modalErrorFunc: ActionCreatorWithPayload<InformModalAction, string>,
 	isLoaderActive: ActionCreatorWithPayload<boolean>,
 	dispatch: AppDispatch
@@ -116,26 +126,28 @@ const singIn = async (
 			dispatch(isLoaderActive(false))
 		})
 		.catch((error) => {
-			console.log('errorrrrrr')
+			
 			const errorCode = error.code;
-			const errorMessage = error.message
-			console.log('errorrrrrr',errorCode,  errorMessage, error)
-			dispatch(modalErrorFunc({informModalmessage: errorMessage, informModalButtonText:'Понятно'}))
+			let errorMessage = error.message
+			errorMessage = translateErrorMessage(errorMessage, error.message)
+			dispatch(modalErrorFunc({ informModalmessage: errorMessage, informModalButtonText: 'Понятно' }))
 			dispatch(isLoaderActive(false))
 		});
 }
 
+
+
 export const autoLoginization = (
 	dispatch: AppDispatch,
-	action: ActionCreatorWithPayload<string | null>
+	fetchCurrentUser: ActionCreatorWithPayload<string | null>
 ) => {
 	onAuthStateChanged(auth, (user) => {
 		if (user) {
-			dispatch(action(user.displayName))
+			dispatch(fetchCurrentUser(user.displayName))
 			const uid = user.uid;
 			console.log('autologin: ', user.displayName)
 		} else {
-			dispatch(action(null))
+			dispatch(fetchCurrentUser(null))
 			console.log('no user')
 		}
 	});

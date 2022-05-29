@@ -3,6 +3,7 @@ import { AutentificationState } from "../../models/IAutentification"
 
 
 const initialState: AutentificationState = {
+	visibleModalAuthSuccess: false,
 	currentUser: null,
 	rememberMe: false,
 	error: '',
@@ -36,7 +37,10 @@ const AutentificationSlise = createSlice({
 			state.userLoginInputValue = ''
 			state.userPasswordInputValue = ''
 			state.userEmailInputValue = ''
-		}
+		},
+		showModalAuthSuccess(state,  action: PayloadAction<boolean>) {
+			state.visibleModalAuthSuccess = action.payload
+		}	
 	}
 })
 
@@ -49,4 +53,5 @@ export const {
 	setEmailInputValue,
 	clearAllFields,
 	setRememberMe,
+	showModalAuthSuccess
 } = AutentificationSlise.actions

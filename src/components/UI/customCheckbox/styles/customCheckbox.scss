@@ -15,7 +15,7 @@
 		display: block;
 		width: 21px;
 		height: 21px;
-		border: 3px #204884 solid;
+		border: 3px $mainColorDeepBlue solid;
 		position: relative;
 		cursor: pointer;
 		transition: all 0.3s;
@@ -25,7 +25,7 @@
 			position: absolute;
 			width: 14px;
 			height: 3px;
-			background: #24DD3C;
+			background: $mainColorGreen;
 			top: 7px;
 			left: 3px;
 			transform: rotate(304deg) scale(0);
@@ -37,7 +37,7 @@
 			position: absolute;
 			width: 7px;
 			height: 3px;
-			background: #24DD3C;
+			background: $mainColorGreen;
 			top: 8px;
 			left: 2px;
 			transform: rotate(53deg) scale(0);
@@ -46,7 +46,7 @@
 	}
 
 	&__label.checked {
-		border: 2px #204884 solid;
+		border: 2px $mainColorDeepBlue solid;
 		border-radius: 50%;
 		transform: scale(1.2);
 		&::after {

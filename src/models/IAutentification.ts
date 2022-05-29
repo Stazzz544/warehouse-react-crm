@@ -1,4 +1,5 @@
 export interface AutentificationState  {
+	visibleModalAuthSuccess: boolean,
 	currentUser: string | null,
 	rememberMe: boolean
 	error: string,

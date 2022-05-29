@@ -23,7 +23,6 @@ const SignIn = () => {
 			userEmailInputValue,
 			userPasswordInputValue,
 			rememberMe,
-			showSuccessInformModal,
 			showErrorInformModal,
 			isLoaderActive,
 			dispatch,

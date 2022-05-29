@@ -5,10 +5,11 @@ import {
 	setEmailInputValue,
 	setPasswordInputValue,
 	setUserLoginInputValue,
+	showModalAuthSuccess,
 } from '../../../store/reducers/AutentificationSlice'
 import { showErrorInformModal } from '../../../store/reducers/InformModalSlice'
 import { isLoaderActive } from '../../../store/reducers/LoaderSpinnerSlice'
-import { showSuccessModalWithChoise } from '../../../store/reducers/ModalWithChoiseSlice'
+import { showErrorModalWithChoise, showSuccessModalWithChoise } from '../../../store/reducers/ModalWithChoiseSlice'
 import AuthBtn from '../../UI/auth/btn/AuthBtn'
 import AuthInput from '../../UI/auth/input/AuthInput'
 import AuthTitle from '../../UI/auth/title/AuthTitle'
@@ -53,6 +54,7 @@ const SignUp = () => {
 		}
 		return true
 	}
+	
 
 	const createNewAccountFuncWrapper = () => {
 
@@ -64,10 +66,9 @@ const SignUp = () => {
 			userLoginInputValue,
 			clearAllFields,
 			dispatch,
-			modalWithChoiseActiveFuncSuccess,
-			modalWithChoiseActiveFuncError,
 			showErrorInformModal,
 			isLoaderActive,
+			showModalAuthSuccess,
 		)
 	}
 
