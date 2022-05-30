@@ -18,21 +18,3 @@
 		}
 	}
 }
-
-.navigation {
-	height: 100%;
-	display: flex;
-	max-width: 1000px;
-	margin: 0 auto;
-	column-gap: 30px;
-	align-items: center;
-	justify-content: center;
-		&__link {
-			color: #ffffff;
-			font-size: 20px;
-			letter-spacing: 1.5px;
-		}
-		&__link:hover {
-			
-		}
-}

@@ -35,10 +35,6 @@ const SignUp = () => {
 		})
 	}
 
-	const modalWithChoiseActiveFuncError = () => {
-		// функция обработки ошибки при регистрации
-	}
-
 	const validationForm = () => {
 		const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
 
